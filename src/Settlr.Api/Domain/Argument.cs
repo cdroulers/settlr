@@ -1,6 +1,6 @@
-namespace Settlr.Api
+namespace Settlr.Api.Domain
 {
-    public class Debate
+    public class Argument
     {
         public int Id { get; set; }
 

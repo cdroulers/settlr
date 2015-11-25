@@ -2,15 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNet.Mvc;
+using Settlr.Api.Domain;
 
 namespace Settlr.Api.Controllers
 {
-    [Route("debates")]
-    public class DebatesController : Controller
+    [Route("arguments")]
+    public class ArgumentsController : Controller
     {
-        private static readonly IList<Debate> debates = new List<Debate>()
+        private static readonly IList<Argument> arguments = new List<Argument>()
         {
-            new Debate()
+            new Argument()
             {
                 Id = 1,
                 Title = "Toilet paper in front or back?",
@@ -21,32 +22,32 @@ namespace Settlr.Api.Controllers
 
         [HttpGet]
         [Route("")]
-        public IEnumerable<Debate> Get()
+        public IEnumerable<Argument> Get()
         {
-            return debates;
+            return arguments;
         }
 
         [HttpPost]
         [Route("")]
-        public Debate Post([FromBody]Debate debate)
+        public Argument Post([FromBody]Argument argument)
         {
-            debate.Id = debates.Max(x => x.Id) + 1;
-            debates.Add(debate);
-            return debate;
+            argument.Id = arguments.Max(x => x.Id) + 1;
+            arguments.Add(argument);
+            return argument;
         }
 
         [HttpGet]
         [Route("{id}")]
-        public Debate Get(int id)
+        public Argument Get(int id)
         {
-            var debate = debates.FirstOrDefault(x => x.Id == id);
-            if (debate == null)
+            var argument = arguments.FirstOrDefault(x => x.Id == id);
+            if (argument == null)
             {
                 // Should return 404;
                 throw new Exception("404 not found");
             }
 
-            return debate;
+            return argument;
         }
     }
 }
