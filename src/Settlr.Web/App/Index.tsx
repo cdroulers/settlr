@@ -7,6 +7,8 @@ import {IntlProvider, addLocaleData} from "react-intl";
 import reactIntlFr = require("react-intl/lib/locale-data/fr");
 import ReactDOM = require("react-dom");
 import Home from "./Components/Home";
+import ArgumentsHome from "./Components/Arguments/Home";
+import ArgumentShow from "./Components/Arguments/Show";
 import SessionStore from "./Stores/SessionStore";
 import SignIn from "./Components/Navigation/SignIn";
 import SignOut from "./Components/Navigation/SignOut";
@@ -33,6 +35,9 @@ if (locale === "fr") {
 const app = <IntlProvider locale={locale} defaultLocale="en" messages={messages}>
   <Router history={History}>
     <Route path="/" component={Home}>
+      <Route path="arguments" component={ArgumentsHome}>
+        <Route path=":argumentId" component={ArgumentShow} />
+        </Route>
       </Route>
     </Router>
   </IntlProvider>;

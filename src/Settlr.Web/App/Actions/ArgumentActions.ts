@@ -17,4 +17,30 @@ export class LoadedAllAction extends Action {
 export class LoadAllAction extends Action {
 }
 
-export default { LoadAllAction, LoadedAllAction }
+export class LoadAction extends Action {
+  private id: string;
+
+  public get Id(): string {
+    return this.id;
+  }
+
+  public constructor(id: string) {
+    super();
+    this.id = id;
+  }
+}
+
+export class LoadedAction extends Action {
+  private argument: IArgument;
+
+  public get Argument(): IArgument {
+    return this.argument;
+  }
+
+  public constructor(argument: IArgument) {
+    super();
+    this.argument = argument;
+  }
+}
+
+export default { LoadAllAction, LoadedAllAction, LoadAction, LoadedAction }
