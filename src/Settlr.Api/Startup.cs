@@ -1,5 +1,4 @@
 using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Cors.Infrastructure;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,19 +21,29 @@ namespace Settlr.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
-            var policy = new CorsPolicy();
-
-            policy.Headers.Add("*");
-            policy.Methods.Add("*");
-            policy.Origins.Add("*");
-            policy.SupportsCredentials = true;
-
-            services.AddCors(x => x.AddPolicy("AllowAll", policy));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.Use(next =>
+            {
+                return async (context) =>
+                {
+                    context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                    if (context.Request.Method == "OPTIONS")
+                    {
+                        context.Response.Headers.Add("Access-Control-Allow-Headers", context.Request.Headers["Access-Control-Request-Headers"]);
+                        context.Response.Headers.Add("Access-Control-Allow-Methods", "DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT");
+                        context.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
+
+                        // Skip everything else!
+                        return;
+                    }
+
+                    await next(context);
+                };
+            });
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
