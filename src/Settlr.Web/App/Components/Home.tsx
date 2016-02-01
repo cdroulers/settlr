@@ -22,9 +22,15 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
 
   public render(): React.ReactElement<{}> {
     return (
-      <div>
+      <div className="container">
         <Navigation user={this.state.User} />
-        {this.props.children}
+
+        { this.props.children ? this.props.children : this.renderDefault() }
+
+        <footer className="footer">
+          <p>© 2016 Settlr, Inc.</p>
+          </footer>
+
         <GlobalError />
         </div>);
   }
@@ -46,5 +52,13 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
       IsLoggedIn: SessionStore.GetIsLoggedIn(),
       User: SessionStore.GetCurrentUser()
     };
+  }
+
+  private renderDefault(): React.ReactElement<{}> {
+    return (<div className="jumbotron">
+          <h1>Welcome to Settlr!</h1>
+          <p className="lead">Settle stupid, useless debates. The right way.</p>
+          <p><a className="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>
+          </div>);
   }
 };

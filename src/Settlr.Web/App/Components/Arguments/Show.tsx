@@ -36,11 +36,17 @@ export default class Show extends React.Component<IShowProps, IShowState> {
   public renderArgument(): React.ReactElement<{}> {
     return this.state.argument ? (
       <div>
-        <h1>{this.state.argument.Title}</h1>
-        <h2>Left</h2>
-        <p>{this.state.argument.AnswerLeft}</p>
-        <h2>Right</h2>
-        <p>{this.state.argument.AnswerRight}</p>
+        <div className="jumbotron">
+          <h1>{this.state.argument.Title}</h1>
+          </div>
+        <div className="row">
+          <div className="col-sm-6 answer">
+            <h2>{this.state.argument.AnswerLeft}</h2>
+            </div>
+          <div className="col-sm-6 answer">
+            <h2>{this.state.argument.AnswerRight}</h2>
+            </div>
+          </div>
         </div>) :
       <div>Argument not found</div>;
   }

@@ -2,6 +2,8 @@ import React = require("react");
 import {IArgument} from "../../Models/Arguments/IArgument";
 import ListStore from "../../Stores/Arguments/ListStore";
 import {bindAllThis} from "../../Helpers/ComponentHelper";
+import ArgumentsActionCreator from "../../ActionCreators/ArgumentsActionCreator";
+import {Link} from "react-router";
 
 interface IListProps extends React.Props<List> {
 
@@ -23,12 +25,13 @@ export default class List extends React.Component<IListProps, IListState> {
   public render(): React.ReactElement<{}> {
     return (
       <ul className="arguments">
-        {this.state.arguments.map(this.renderArgument)}
-      </ul>);
+        {this.state.arguments.map(this.renderArgument) }
+        </ul>);
   }
 
   public componentDidMount(): void {
     ListStore.addListener(this.onChange);
+    ArgumentsActionCreator.LoadAll();
   }
 
   public componentWillUnmount(): void {
@@ -40,7 +43,9 @@ export default class List extends React.Component<IListProps, IListState> {
   }
 
   private renderArgument(argument: IArgument): React.ReactElement<{}> {
-    return <li>{argument.Title}</li>;
+    return <li key={argument.Id}>
+      <Link to={ "/arguments/" + argument.Id }>{argument.Title}</Link>
+      </li>;
   }
 
   private getStateFromStores(): IListState {

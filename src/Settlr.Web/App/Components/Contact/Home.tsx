@@ -1,6 +1,5 @@
 import React = require("react");
 import {bindAllThis} from "../../Helpers/ComponentHelper";
-import List from "./List";
 
 interface IHomeProps extends React.Props<Home> {
 
@@ -20,7 +19,9 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
   public render(): React.ReactElement<{}> {
     return (
       <div>
-        {this.props.children ? this.props.children : <List />}
+      <h1>Contact</h1>
+      <p>Author: Christian Droulers</p>
+      <p><a href="mailto:christian@droulers.me">christian@droulers.me</a></p>
       </div>);
   }
 

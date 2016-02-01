@@ -28,7 +28,7 @@ class ArgumentsApiUtils extends BaseApiUtils {
           return callback(err);
         }
 
-        callback(null, res.body.data);
+        callback(null, res.body);
       });
   }
 }
